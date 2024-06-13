@@ -33,8 +33,9 @@
 
       darwinConfigurations = {
         joyboy = mkDarwinSystem defaultSystems.darwin ./hosts/joyboy/configuration.nix;
-        sezer = mkDarwinSystem "x86_64-darwin" ./hosts/sezer/configuration.nix;
+        musu = mkDarwinSystem defaultSystems.darwin ./hosts/musu/configuration.nix;
         chained = mkDarwinSystem defaultSystems.darwin ./hosts/chained/configuration.nix;
+        sezer = mkDarwinSystem "x86_64-darwin" ./hosts/sezer/configuration.nix;
       };
 
       devShell = forAllSystems (system: let

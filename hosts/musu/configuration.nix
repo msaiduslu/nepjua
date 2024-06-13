@@ -3,23 +3,16 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 {...}: {
   networking.hostName = "musu";
-  networking.computerName = "Musu Mac";
+  networking.computerName = "Musu Macbook Pro";
 
   myNixOS = {
-    bundles.general-desktop.enable = true;
+    bundles.darwin-desktop.enable = true;
 
-    darwin-users = {
-      nepjua = {
+    users = {
+      musu = {
         userConfig = {...}: {
-          myHomeManager = {
-            bundles.tui.enable = true;
-            bundles.gui.enable = false;
-          };
-
-          programs.git = {
-            userEmail = "msaiduslu@gmail.com";
-            userName = "Muhammed Said Uslu";
-          };
+          programs.git.userName = "Muhammed Said Uslu";
+          programs.git.userEmail = "msaiduslu@gmail.com";
         };
         userSettings = {};
       };
