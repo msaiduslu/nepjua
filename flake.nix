@@ -46,8 +46,6 @@
             name = "default";
             buildInputs = [
               just
-              alejandra
-              go-task
               python312
               python312Packages.pip
             ];
@@ -56,6 +54,7 @@
               export HF_HUB_ENABLE_HF_TRANSFER=1
               export PATH=$HOME/.local/bin:$PATH
               export PATH=$HOME/.console-ninja/.bin:$PATH
+              export PATH=$HOME/.bun/bin:$PATH
             '';
           });
 

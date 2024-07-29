@@ -5,6 +5,7 @@
   outputs,
   myLib,
   pkgs,
+  myArgs,
   ...
 }: {
   options.myNixOS.users = lib.mkOption {
@@ -37,14 +38,22 @@
     programs.java.enable = true;
 
     nix.settings.trusted-users = ["root"] ++ (builtins.attrNames config.myNixOS.users);
+    nix.settings.trusted-substituters = [
+      "https://nix-community.cachix.org/"
+      "https://cache.nixos.org/"
+      "https://devenv.cachix.org/"
+      "https://nixpkgs-update.cachix.org/"
+    ];
 
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
+      backupFileExtension = "before-my-home-manager";
 
       extraSpecialArgs = {
         inherit inputs;
         inherit myLib;
+        inherit myArgs;
         outputs = inputs.self.outputs;
       };
 
@@ -56,12 +65,7 @@
               home.username = name;
               home.homeDirectory = "/home/${name}";
             })
-            (import outputs.homeManagerModules.default {
-              inherit inputs;
-              inherit myLib;
-              system = pkgs.system;
-              isLinux = myLib.isLinuxSystem pkgs.system;
-            })
+            outputs.homeManagerModules.default
           ];
         })
         (config.myNixOS.users);
@@ -74,7 +78,6 @@
           initialPassword = "123456";
           description = "";
           shell = pkgs.fish;
-          extraGroups = ["libvirtd" "networkmanager" "wheel" "docker"];
         }
         // user.userSettings
     ) (config.myNixOS.users);

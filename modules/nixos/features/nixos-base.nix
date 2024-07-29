@@ -9,7 +9,6 @@
   networking.networkmanager.enable = true;
 
   # Enable sound with pipewire.
-  sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -50,41 +49,21 @@
     (with pkgs; [
       gnome-photos
       gnome-tour
-    ])
-    ++ (with pkgs.gnome; [
-      cheese # webcam tool
-      gnome-music
+      cheese
       gnome-terminal
       epiphany # web browser
       geary # email reader
-      evince # document viewer
-      gnome-characters
       totem # video player
+      evince # document viewer
+    ])
+    ++ (with pkgs.gnome; [
+      gnome-music
+      gnome-characters
       tali # poker game
       iagno # go game
       hitori # sudoku game
       atomix # puzzle game
     ]);
-
-  # FIXME: This should be in features.qemuGuest
-  services.qemuGuest.enable = false;
-  services.spice-autorandr.enable = false;
-  services.spice-vdagentd.enable = false;
-  services.spice-webdavd.enable = false;
-
-  # FIXME: Install All of these as home packages
-  environment.systemPackages = with pkgs; [
-    _1password # FIXME: Move to home-manager
-    _1password-gui # FIXME: Move to home-manager
-    gnome.dconf-editor # FIXME: Move to home-manager
-    xrdp # FIXME: Move to home-manager
-    discord # FIXME: Move to home-manager
-  ];
-
-  # FIXME: Put in features.docker
-  virtualisation.docker.enable = true;
-  virtualisation.docker.enableNvidia = true;
-  virtualisation.docker.enableOnBoot = true;
 
   # Enable automatic login for the user.
   services.getty.autologinUser = "nepjua";

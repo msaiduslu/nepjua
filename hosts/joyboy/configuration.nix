@@ -5,7 +5,7 @@
   networking.hostName = "joyboy";
   networking.computerName = "Joi Boi";
 
-  myNixOS = {
+  myDarwin = {
     bundles.darwin-desktop.enable = true;
 
     users = {
@@ -13,6 +13,7 @@
         userConfig = {...}: {
           programs.git.userName = "Yasin Uslu";
           programs.git.userEmail = "nepjua@gmail.com";
+          myHomeManager.darwin.colima.enable = false;
         };
         userSettings = {};
       };

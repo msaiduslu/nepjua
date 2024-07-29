@@ -39,9 +39,28 @@
         myHomeManager.linux.${name}.enable = lib.mkEnableOption "enable my ${name} configuration";
       };
 
+      extraConfig = {
+        myHomeManager.linux.${name}.enable = lib.mkDefault true;
+      };
+
       configExtension = config: (lib.mkIf (cfg.linux.${name}.enable) config);
     })
     (myLib.filesIn ./features-linux);
+
+  featuresDarwin =
+    myLib.extendModules
+    (name: {
+      extraOptions = {
+        myHomeManager.darwin.${name}.enable = lib.mkEnableOption "enable my ${name} configuration";
+      };
+
+      extraConfig = {
+        myHomeManager.darwin.${name}.enable = lib.mkDefault true;
+      };
+
+      configExtension = config: (lib.mkIf (cfg.darwin.${name}.enable) config);
+    })
+    (myLib.filesIn ./features-darwin);
 in {
   home.stateVersion = "24.05";
 
@@ -52,6 +71,11 @@ in {
     ++ (
       if myArgs.isCurrentSystemLinux
       then featuresLinux
+      else []
+    )
+    ++ (
+      if myArgs.isCurrentSystemDarwin
+      then featuresDarwin
       else []
     )
     ++ exitModules;

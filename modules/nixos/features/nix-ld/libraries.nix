@@ -1,4 +1,7 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  libwebp6-compat = pkgs.callPackage ./libwebp6-compat.nix {inherit pkgs;};
+  libpcre3-deb = pkgs.callPackage ./libpcre3-deb.nix {inherit pkgs;};
+in {
   programs.nix-ld.libraries = with pkgs; [
     alsa-lib.out
     at-spi2-atk.out
@@ -15,6 +18,7 @@
     fuse3
     gdk-pixbuf
     glib.out
+    glib.debug
     gtk3
     icu
     libappindicator-gtk3
@@ -54,5 +58,35 @@
     xorg.libXtst.out
     xorg_sys_opengl.out
     zlib.out
+    zulip.out
+    harfbuzz.out
+    icu66.out
+    sqlite.out
+    libxslt.out
+    libepoxy.out
+    lcms.out
+    woff2.lib
+    libevent.out
+    libopus.out
+    libgcrypt.out
+    libgpg-error.out
+    libjpeg8.out
+    libpng.out
+    libwebp.out # libwebp.so.7
+    libwebp6-compat.out # libwebp.so.6
+    harfbuzzFull.out
+    enchant.out
+    libsecret.out
+    libtasn1.out
+    hyphen.out
+    flite.lib
+    libpsl.out
+    nghttp2.lib
+    libgudev.out
+    libevdev.out
+    libffi_3_3.out
+    json-glib.out
+    gnutls.out
+    libpcre3-deb.out
   ];
 }

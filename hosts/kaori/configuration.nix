@@ -7,6 +7,7 @@
   ];
 
   networking.hostName = "kaori";
+  networking.firewall.enable = false;
 
   myNixOS = {
     bundles.general-desktop.enable = true;
@@ -17,8 +18,9 @@
           programs.git.userName = "Yasin Uslu";
           programs.git.userEmail = "nepjua@gmail.com";
         };
+
         userSettings = {
-          extraGroups = ["docker" "libvirtd" "networkmanager" "wheel" "adbusers"];
+          extraGroups = ["networkmanager" "wheel" "adbusers" "docker" "lxd" "kvm" "libvirtd"];
         };
       };
     };
